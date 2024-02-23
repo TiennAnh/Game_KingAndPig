@@ -36,6 +36,24 @@ export default class MapScene extends Phaser.Scene {
       }),
     });
     this.anims.create({
+      key: "jump Right",
+      frames: this.anims.generateFrameNumbers("jump-right", {
+        start: 0,
+        end: 0,
+      }),
+      frameRate: 10,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: "jump Left",
+      frames: this.anims.generateFrameNumbers("jump-left", {
+        start: 0,
+        end: 0,
+      }),
+      frameRate: 10,
+      repeat: -1,
+    });
+    this.anims.create({
       key: "idle Right",
       frames: this.anims.generateFrameNumbers("idle-right", {
         start: 0,
@@ -56,6 +74,33 @@ export default class MapScene extends Phaser.Scene {
     this.anims.create({
       key: "king-attack-Right",
       frames: this.anims.generateFrameNumbers("king-attack-right", {
+        start: 0,
+        end: 2,
+      }),
+      frameRate: 10,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: "king-attack-Left",
+      frames: this.anims.generateFrameNumbers("king-attack-left", {
+        start: 2,
+        end: 2,
+      }),
+      frameRate: 10,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: "die-Right",
+      frames: this.anims.generateFrameNumbers("king-die-right", {
+        start: 3,
+        end: 3,
+      }),
+      frameRate: 10,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: "die-Left",
+      frames: this.anims.generateFrameNumbers("king-die-left", {
         start: 0,
         end: 2,
       }),
@@ -172,9 +217,13 @@ export default class MapScene extends Phaser.Scene {
     }
     if (this.cursors.up.isDown) {
       this.player.setVelocityY(-150);
+      this.player.anims.play(`jump ${this.lastDirection}`, true);
     }
     if (this.cursors.space.isDown) {
       this.player.anims.play(`king-attack-${this.lastDirection}`, true);
+    }
+    if (this.cursors.shift.isDown) {
+      this.player.anims.play(`die-${this.lastDirection}`, true);
     }
   }
 }
