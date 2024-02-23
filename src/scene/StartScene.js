@@ -8,7 +8,9 @@ export default class StartScene extends Phaser.Scene {
     const cameraWidth = camera.width;
     const cameraHeight = camera.height;
 
-    this.TilePig = this.add.image(cameraWidth / 2 - 80, cameraHeight / 4, "tilePig").setOrigin(0);
+    this.TilePig = this.add
+      .image(cameraWidth / 2 - 80, cameraHeight / 4, "tilePig")
+      .setOrigin(0);
 
     this.playButton = this.add
       .text(400, 300, "Play Game", {
@@ -33,10 +35,10 @@ export default class StartScene extends Phaser.Scene {
     });
 
     this.playButton.on("pointerout", () => {});
-
   }
   onEvent() {
     this.scene.start("MapScene");
+    this.scene.start("UIScene");
   }
   update() {}
 }

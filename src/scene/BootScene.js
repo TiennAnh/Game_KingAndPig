@@ -10,6 +10,8 @@ export default class BootScene extends Phaser.Scene {
       "/assets/Decorations/Decorations (32x32).png"
     );
     this.load.image("confetti", "/public/assets/Colision/Confetti (16x16).png");
+    this.load.image("live-bar", "/public/assets/HeartDiamond/Live Bar.png");
+    this.load.image("tilePig", "/public/assets/TilePig/Kings and Pigs.png");
     this.load.spritesheet(
       "move-right",
       "/assets/SpritePlayer/RunRight(78x58).png",
@@ -43,6 +45,22 @@ export default class BootScene extends Phaser.Scene {
       }
     );
     this.load.spritesheet(
+      "king-attack-right",
+      "/public/assets/SpritePlayer/Attack Right(78x58).png",
+      {
+        frameWidth: 78,
+        frameHeight: 58,
+      }
+    );
+    this.load.spritesheet(
+      "king-attack-left",
+      "/public/assets/SpritePlayer/Attack Left(78x58).png",
+      {
+        frameWidth: 78,
+        frameHeight: 58,
+      }
+    );
+    this.load.spritesheet(
       "idle-pig",
       "/public/assets/SpritePig/Idle (34x28).png",
       {
@@ -58,7 +76,6 @@ export default class BootScene extends Phaser.Scene {
         frameHeight: 28,
       }
     );
-    this.load.image("tilePig", "/public/assets/TilePig/Kings and Pigs.png");
     this.load.spritesheet(
       "idle-diamond",
       "/public/assets/HeartDiamond/Big Diamond Idle (18x14).png",
@@ -75,11 +92,20 @@ export default class BootScene extends Phaser.Scene {
         frameHeight: 14,
       }
     );
+    this.load.spritesheet(
+      "diamond-navbar",
+      "/public/assets/HeartDiamond/Small Diamond (18x14).png",
+      {
+        frameWidth: 18,
+        frameHeight: 14,
+      }
+    );
   }
 
   create() {
-    this.scene.start("MapScene");
-    // this.scene.start("StartScene");
+    this.scene.start("StartScene");
+    // this.scene.start("UIScene");
+    // this.scene.start("MapScene");
   }
   update() {}
 }

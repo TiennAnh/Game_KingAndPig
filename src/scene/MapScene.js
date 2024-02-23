@@ -1,6 +1,8 @@
 export default class MapScene extends Phaser.Scene {
   constructor() {
     super("MapScene");
+    this.score;
+    this.textScore;
   }
   preload() {}
   create() {
@@ -19,7 +21,6 @@ export default class MapScene extends Phaser.Scene {
 
     this.player = this.physics.add.sprite(200, 450, "idle-right");
     this.physics.add.collider(this.player, colison);
-    // this.player.setCollideWorldBounds(true);
     this.anims.create({
       key: "turn-right",
       frames: this.anims.generateFrameNumbers("move-right", {
@@ -52,6 +53,24 @@ export default class MapScene extends Phaser.Scene {
       frameRate: 10,
       repeat: -1,
     });
+    this.anims.create({
+      key: "king-attack-Right",
+      frames: this.anims.generateFrameNumbers("king-attack-right", {
+        start: 0,
+        end: 2,
+      }),
+      frameRate: 10,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: "king-attack-Left",
+      frames: this.anims.generateFrameNumbers("king-attack-left", {
+        start: 2,
+        end: 2,
+      }),
+      frameRate: 10,
+      repeat: -1,
+    });
 
     this.pig = this.physics.add.sprite(650, 440, "idle-pig");
     this.physics.add.collider(this.pig, colison);
@@ -78,22 +97,7 @@ export default class MapScene extends Phaser.Scene {
       repeat: -1,
     });
 
-    // this.anims.create({
-    //   key: "idle-diamond",
-    //   frames: this.anims.generateFrameNumbers("idle-diamond", {
-    //     start: 0,
-    //     end: 9,
-    //   }),
-    // });
-    // this.physics.add.sprite(400, 400, "idle-diamond");
-
-    // this.diamond = this.physics.add.group({
-    //   key: "idle-diamond",
-    //   repeat: 5,
-    //   setXY: { x: 150, y: 150, stepX: 300 },
-    // });
-
-    this.diamond = this.physics.add.sprite(200, 460, "idle-diamond");
+    this.diamond = this.physics.add.sprite(200, 310, "idle-diamond");
     this.physics.add.collider(this.diamond, colison);
     this.anims.create({
       key: "idle-diamond",
@@ -104,8 +108,15 @@ export default class MapScene extends Phaser.Scene {
       frameRate: 10,
       repeat: 1,
     });
+    this.physics.add.overlap(
+      this.player,
+      this.diamond,
+      this.collectDiamond,
+      null,
+      this
+    );
 
-    this.heart = this.physics.add.sprite(300, 460, "idle-heart");
+    this.heart = this.physics.add.sprite(1100, 260, "idle-heart");
     this.physics.add.collider(this.heart, colison);
     this.anims.create({
       key: "idle-heart",
@@ -116,16 +127,13 @@ export default class MapScene extends Phaser.Scene {
       frameRate: 10,
       repeat: -1,
     });
-    // const configDiamond = {
-    //   key: "idle-Diamond",
-    //   x: { randInt: [0, 1000] },
-    //   y: { randInt: [100, 300] },
-    //   anims: "idle-diamond",
-    // };
-
-    // for (let i = 0; i < 10; i++) {
-    //   this.make.sprite(configDiamond);
-    // }
+    this.physics.add.overlap(
+      this.player,
+      this.heart,
+      this.collectHeart,
+      null,
+      this
+    );
 
     this.cameras.main.startFollow(this.player, true, 0.05, 0.05);
     this.cameras.main.setBounds(0, 0, 1250, 600);
@@ -135,6 +143,15 @@ export default class MapScene extends Phaser.Scene {
 
     this.cursors = this.input.keyboard.createCursorKeys();
   }
+
+  collectHeart() {
+    this.heart.disableBody(true, true);
+  }
+
+  collectDiamond() {
+    this.diamond.disableBody(true, true);
+  }
+
   update() {
     this.pig.anims.play("idle-pig", true);
     this.pigKing.anims.play("idle-pigking", true);
@@ -155,6 +172,9 @@ export default class MapScene extends Phaser.Scene {
     }
     if (this.cursors.up.isDown) {
       this.player.setVelocityY(-150);
+    }
+    if (this.cursors.space.isDown) {
+      this.player.anims.play(`king-attack-${this.lastDirection}`, true);
     }
   }
 }
