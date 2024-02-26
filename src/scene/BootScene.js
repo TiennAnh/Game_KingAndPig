@@ -132,12 +132,20 @@ export default class BootScene extends Phaser.Scene {
         frameHeight: 14,
       }
     );
+    this.load.spritesheet(
+      "heart-navbar",
+      "/public/assets/HeartDiamond/Small Heart Idle (18x14).png",
+      {
+        frameWidth: 18,
+        frameHeight: 14,
+      }
+    );
   }
 
   create() {
-    this.scene.start("StartScene");
-    // this.scene.start("UIScene");
-    // this.scene.start("MapScene");
+    // this.scene.start("StartScene");
+    this.scene.start("UIScene");
+    this.scene.start("MapScene");
   }
   update() {}
 }

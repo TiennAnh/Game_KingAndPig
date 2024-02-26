@@ -3,6 +3,9 @@ export default class MapScene extends Phaser.Scene {
     super("MapScene");
     this.score;
     this.textScore;
+    this.player;
+    this.heart;
+    this.swordHitbox;
   }
   preload() {}
   create() {
@@ -116,6 +119,9 @@ export default class MapScene extends Phaser.Scene {
       frameRate: 10,
       repeat: -1,
     });
+    // this.swordHitbox = this.add.rectangle(0, 0, 32, 64, 0xffffff, 0.5);
+    // this.swordHitbox.x = this.player.x + this.player.x * 0.13;
+    // this.swordHitbox.y = this.player.y;
 
     this.pig = this.physics.add.sprite(650, 440, "idle-pig");
     this.physics.add.collider(this.pig, colison);
@@ -191,10 +197,24 @@ export default class MapScene extends Phaser.Scene {
 
   collectHeart() {
     this.heart.disableBody(true, true);
+    this.scene.get("UIScene").increaseHearts();
   }
 
   collectDiamond() {
     this.diamond.disableBody(true, true);
+    this.scene.get("UIScene").increaseGems();
+  }
+
+  playerAttackRight() {
+    this.swordHitbox = this.add.rectangle(0, 0, 32, 64, 0xffffff, 0.5);
+    this.swordHitbox.x = this.player.x + this.player.width * 0.25;
+    this.swordHitbox.y = this.player.y;
+  }
+
+  playerAttackLeft() {
+    this.swordHitbox = this.add.rectangle(0, 0, 32, 64, 0xffffff, 0.5);
+    this.swordHitbox.x = this.player.x - this.player.width * 0.25;
+    this.swordHitbox.y = this.player.y;
   }
 
   update() {
@@ -221,6 +241,11 @@ export default class MapScene extends Phaser.Scene {
     }
     if (this.cursors.space.isDown) {
       this.player.anims.play(`king-attack-${this.lastDirection}`, true);
+      if (this.lastDirection === "Right") {
+        this.playerAttackRight();
+      } else {
+        this.playerAttackLeft();
+      }
     }
     if (this.cursors.shift.isDown) {
       this.player.anims.play(`die-${this.lastDirection}`, true);
