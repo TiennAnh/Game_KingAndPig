@@ -38,7 +38,6 @@ export default class StartScene extends Phaser.Scene {
   }
   onEvent() {
     this.scene.start("MapScene");
-    this.scene.start("UIScene");
   }
   update() {}
 }

@@ -49,6 +49,28 @@ export default class UIScene extends Phaser.Scene {
     this.textScoreGems = this.add.text(54, 52, "0", {
       fontSize: 10,
     });
+
+    this.menuGui = this.add
+      .image(0, 0, "gui-menu")
+      .setOrigin(0)
+      .setScale(0.15)
+      .setPosition(10, 200)
+      .setInteractive();
+
+    this.menuSetting = this.add
+      .image(0, 0, "gui-setting")
+      .setOrigin(0)
+      .setScale(0.12)
+      .setPosition(760, 10)
+      .setInteractive();
+
+    this.menuGui.on("pointerdown", () => {
+      this.onMenu();
+    });
+
+    this.menuSetting.on("pointerdown", () => {
+      this.onSetting();
+    });
   }
 
   update() {
@@ -63,5 +85,39 @@ export default class UIScene extends Phaser.Scene {
 
   increaseHearts() {
     this.heart.setAlpha(2);
+  }
+
+  onMenu() {
+    this.menuMenu = this.add
+      .image(0, 0, "menu-gui-menu")
+      .setOrigin(0)
+      .setPosition(50, 70);
+
+    this.closeButton = this.add
+      .image(0, 0, "close-button")
+      .setOrigin(0)
+      .setPosition(710, 80)
+      .setInteractive();
+    this.closeButton.on("pointerdown", () => {
+      this.menuMenu.destroy();
+      this.closeButton.destroy();
+    });
+  }
+
+  onSetting() {
+    this.menuSetting = this.add
+      .image(0, 0, "menu-gui-menu")
+      .setOrigin(0)
+      .setPosition(50, 70);
+
+    this.closeButton = this.add
+      .image(0, 0, "close-button")
+      .setOrigin(0)
+      .setPosition(710, 80)
+      .setInteractive();
+    this.closeButton.on("pointerdown", () => {
+      this.menuSetting.destroy();
+      this.closeButton.destroy();
+    });
   }
 }

@@ -119,18 +119,30 @@ export default class MapScene extends Phaser.Scene {
       frameRate: 10,
       repeat: -1,
     });
-    // this.swordHitbox = this.add.rectangle(0, 0, 32, 64, 0xffffff, 0.5);
-    // this.swordHitbox.x = this.player.x + this.player.x * 0.13;
-    // this.swordHitbox.y = this.player.y;
+    // this.physics.add.overlap(
+    //   this.swordHitbox,
+    //   this.pig,
+    //   this.handleCollide,
+    //   null,
+    //   this
+    // );
 
     this.pig = this.physics.add.sprite(650, 440, "idle-pig");
     this.physics.add.collider(this.pig, colison);
-    // this.physics.add.collider(this.pig, this.player);
     this.anims.create({
       key: "idle-pig",
       frames: this.anims.generateFrameNumbers("idle-pig", {
         start: 0,
         end: 10,
+      }),
+      frameRate: 10,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: "die-pig",
+      frames: this.anims.generateFrameNumbers("die-pig", {
+        start: 0,
+        end: 3,
       }),
       frameRate: 10,
       repeat: -1,
@@ -193,6 +205,8 @@ export default class MapScene extends Phaser.Scene {
     this.lastDirection = "Right";
 
     this.cursors = this.input.keyboard.createCursorKeys();
+    
+    this.scene.launch("UIScene");
   }
 
   collectHeart() {
@@ -206,13 +220,13 @@ export default class MapScene extends Phaser.Scene {
   }
 
   playerAttackRight() {
-    this.swordHitbox = this.add.rectangle(0, 0, 32, 64, 0xffffff, 0.5);
+    this.swordHitbox = this.add.rectangle(0, 0, 32, 64, 0xffffff, 0.05);
     this.swordHitbox.x = this.player.x + this.player.width * 0.25;
     this.swordHitbox.y = this.player.y;
   }
 
   playerAttackLeft() {
-    this.swordHitbox = this.add.rectangle(0, 0, 32, 64, 0xffffff, 0.5);
+    this.swordHitbox = this.add.rectangle(0, 0, 32, 64, 0xffffff, 0.05);
     this.swordHitbox.x = this.player.x - this.player.width * 0.25;
     this.swordHitbox.y = this.player.y;
   }

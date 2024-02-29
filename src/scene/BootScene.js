@@ -140,12 +140,26 @@ export default class BootScene extends Phaser.Scene {
         frameHeight: 14,
       }
     );
+    this.load.spritesheet(
+      "die-pig",
+      "/public/assets/SpritePig/Dead (34x28).png",
+      {
+        frameWidth: 34,
+        frameHeight: 28,
+      }
+    );
+    this.load.image("gui-menu", "/public/assets/MenuGui/Icon_Menu.png");
+    this.load.image("gui-setting", "/public/assets/MenuGui/Icon_Settings.png");
+    this.load.image("menu-gui-menu", "/public/assets/HUD Text Box.png");
+    this.load.image("close-button", "/public/assets/closeButton.png");
   }
 
   create() {
-    // this.scene.start("StartScene");
-    this.scene.start("UIScene");
-    this.scene.start("MapScene");
+    this.scene.start("StartScene");
+    // this.scene.start("UIScene");
+    // this.scene.start("MapScene");
+
+    
   }
   update() {}
 }
