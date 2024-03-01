@@ -11,8 +11,8 @@
             "scaleInDock": 1
         }
     },
-    "last.exportedFilePath": "E:/Work/FCS/Mit/kingsandpig_game/public",
-    "last.imagePath": "E:/Work/FCS/Mit/kingsandpig_game/public/assets/Colision",
+    "last.exportedFilePath": "E:/Work/FCS/Mit/kingsandpigv2_game/public",
+    "last.imagePath": "E:/Work/FCS/Mit/Map_KingandPigs/14-TileSets",
     "map.lastUsedExportFilter": "All Files (*)",
     "map.lastUsedFormat": "tmx",
     "map.width": 40,
@@ -24,7 +24,7 @@
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
-        "height": 16,
-        "width": 16
+        "height": 32,
+        "width": 32
     }
 }

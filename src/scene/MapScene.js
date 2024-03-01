@@ -205,7 +205,7 @@ export default class MapScene extends Phaser.Scene {
     this.lastDirection = "Right";
 
     this.cursors = this.input.keyboard.createCursorKeys();
-    
+
     this.scene.launch("UIScene");
   }
 
@@ -220,13 +220,13 @@ export default class MapScene extends Phaser.Scene {
   }
 
   playerAttackRight() {
-    this.swordHitbox = this.add.rectangle(0, 0, 32, 64, 0xffffff, 0.05);
+    this.swordHitbox = this.add.rectangle(0, 0, 32, 64, 0xffffff, 0.001);
     this.swordHitbox.x = this.player.x + this.player.width * 0.25;
     this.swordHitbox.y = this.player.y;
   }
 
   playerAttackLeft() {
-    this.swordHitbox = this.add.rectangle(0, 0, 32, 64, 0xffffff, 0.05);
+    this.swordHitbox = this.add.rectangle(0, 0, 32, 64, 0xffffff, 0.001);
     this.swordHitbox.x = this.player.x - this.player.width * 0.25;
     this.swordHitbox.y = this.player.y;
   }
@@ -249,8 +249,8 @@ export default class MapScene extends Phaser.Scene {
       this.player.setVelocityX(0);
       this.player.anims.play(`idle ${this.lastDirection}`, true);
     }
-    if (this.cursors.up.isDown) {
-      this.player.setVelocityY(-150);
+    if (this.cursors.up.isDown && this.player.body.blocked.down) {
+      this.player.setVelocityY(-260);
       this.player.anims.play(`jump ${this.lastDirection}`, true);
     }
     if (this.cursors.space.isDown) {
